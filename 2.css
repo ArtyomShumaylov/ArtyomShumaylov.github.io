@@ -1,0 +1,55 @@
+.list1 a::after
+{
+    content: '   ';
+    width: 10%;
+}
+.list1
+{
+    display: inline-block;
+}
+
+
+.post-thumb {
+    float: left
+}
+
+.post-content {
+    margin-left: 210px
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 200%
+}
+footer 
+{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    background-color: #45a1ff;
+    color: #fff;
+}
+.plist
+{
+    text-align: center;
+    background-color: #45a1ff;
+    margin: 2%
+}
+.table
+{
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.off
+{
+    background-color: red;
+}
+
+.bbdy 
+{
+    max-width:960px;
+    text-align: center;
+    margin: 0;
+}
