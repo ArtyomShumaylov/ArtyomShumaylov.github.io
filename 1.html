@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<head>
+    <title> Test website</title>
+    <meta name="Test website"> 
+</head>
+
+<body>
+
+    <h1>Задание 1, Второй уровень</h1>
+    <h2> <a href="2.html">ВТОРОЕ ЗАДАНИЕ </a> </h2>
+    
+    <section>       
+        <ol>
+            <p><a name="top"></a></p> 
+            <li> <a href="www.kubsu.ru">Ссылка на kubsu.ru </a> </li>
+            <li> <a href="https://www.kubsu.ru/ru">Ссылка на главную kubsu.ru через https</a> </li>
+            <li> <a href="https://www.kubsu.ru/ru"> <img src= "logo.png", alt = "Ссылка на главную через изображение", style = "width: 160px; height: 100px;"> </a> </li>
+            <li> <a href="task12.html">Ссылка на внутреннюю страницу</a> </li>
+            <li> <a href="index.html">Ссылка на главную страницу</a> </li>
+            <li> <a href="#top">Ссылка на верхнюю часть страницы</a> </li>
+            <li> <a href="https://www.numbers.com?one=odin&two=dva&three=tri" >Ссылка с тремя парамерами </a> </li>
+            <li> <a href="https://www.numbers.com?id=12" >Ссылка параметром id </a> </li>
+            <li><p><a href="task12.html">Относительная ссылка на страницу в текущем каталоге</a></p></li>    
+            <li><p><a href="about/task1about.html">Относительная ссылка на страницу в about</a></p></li>
+            <li><p><a href="../task13.html">Относительная ссылка на страницу в верхней папке</a></p></li>
+            <li><p><a href="../../task14.html">Относительная ссылка на страницу в папке на 2 уровня выше</a></p></li>
+            <li><p> Контекстная <a href="https://www.kubsu.ru/index.php" target="_blank">ссылка</a> на кубгу</p></li>
+            <li><p><a href="task12.html#bottom">Ссылка на фрагмент страницы</a></li>
+
+            <li><img src="logo.png" alt="Workplace" usemap="#workmap" width="400" height="300">
+            <map name="workmap">
+            <area shape="rect" coords="34,44,270,350" alt="Прямоугольная зона-ссылка в прямоугольной области" href="task12.html">
+            <area shape="circle" coords="337,300,44" alt="Круглая зона-ссылка в прямоугольной области" href="task12.html">
+            </map> </li>
+
+            <li><a href="">Ссылка с пустым href</a></li>
+            <li><a>Ссылка без href</a></li>
+            <li><a href="https://www.kubsu.ru/index.php" rel="nofollow">Cсылка, по которой запрещен переход поисковикам</a></li>
+            <li><noindex><a href="https://www.kubsu.ru/index.php" rel="nofollow">Ссылка, запрещенная для индексации поисковиками</a></noindex></li>
+            <li>
+                <ol>
+                    <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+
+                    <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+            
+                    <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+                   </ol>
+            </li>
+
+            <li><a href="ftp://user:pass123@tavalik.ru/Temp/file.txt" rel="nofollow">Ссылка на файл на сервере FTP</a></li>
+        </ol>
+
+        <form>
+            <label for="fname">ФИО:</label><br>
+            <input type="text" id="fname" name="fname"><br>
+
+            <label for="fnumber">Телефон:</label><br>
+            <input type="tel" id="fnumber" name="fnumber"><br>
+
+            <label for="fmail">Почта:</label><br>
+            <input type="email" id="fmail" name="fmail"><br>
+
+            <label for="fdate">Дата рождения:</label><br>
+            <input type="date" id="fdate" name="fdate"><br>
+
+            <p>Пол:</p>
+            <div>
+              <input type="radio" id="contactChoice1" name="contact" value="male" />
+              <label for="contactChoice1">Мужской</label>
+          
+              <input type="radio" id="contactChoice2" name="contact" value="female" />
+              <label for="contactChoice2">Женский</label>
+          
+              <input type="radio" id="contactChoice3" name="contact" value="NA" />
+              <label for="contactChoice3">Не указывать</label>
+            </div>
+          
+
+          <p><b>Любимые языки программирования:</b></p>
+          <label for="langs"></label>
+            <select name="langs[]" id="langs" multiple>
+
+            <option value="Pascal">Pascal</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="PHP">PHP</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="Haskel">Haskel</option>
+            <option value="Clojure">Clojure</option>
+            <option value="Prolog">Prolog</option>
+            <option value="Scala">Scala</option>
+            </select>
+
+            <p><b>Ваша биография:</b></p>
+            <p><textarea name="comment"></textarea></p>
+
+            <input type="checkbox" id="check" name="check" value="">
+            <label for="check">С контрактом ознакомлен(а) </label><br>
+
+            <button type="submit" name="save_button">Сохранить</button>
+
+        </form>
+
+    </section>
+
+
+</body>
