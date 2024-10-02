@@ -31,9 +31,15 @@ footer
 }
 .plist
 {
-    text-align: center;
+    
     background-color: #45a1ff;
     margin: 2%
+}
+.plist1
+{
+    background-color: #45a1ff;
+    box-sizing: border-box;
+    width: 100%;
 }
 .table
 {
