@@ -1,69 +1,160 @@
+<!DOCTYPE html>
 
-.list1
-{
-    display:inline-block;
-    position:relative;
-    left: 85%;
-    transform: translateX(-100%);
-}
+<html>
 
-.post-thumb {
-    float: left
-}
+    <link rel = "stylesheet" href="2.css">
 
-.post-title {
-    margin-left: 210px;
-    font-size: 200%;
-    text-align:left;
-}
-footer 
-{
-    display: flex;
-    justify-content: left;
-    padding: 5px;
-    background-color: #45a1ff;
-    color: #fff;
-}
-.plist
-{
-    background-color: #45a1ff;
-    margin: 2%;
-}
-.plist1
-{
-    background-color: #45a1ff;
-    box-sizing: border-box;
-    width: 100%;
-}
-.table
-{
-    border-collapse:collapse;
-}
+  
 
-.off
-{
-    background-color: red;
-}
 
-.on
-{
+<body class="bbdy" >
 
-}
+  <section class=" plist1">  
 
-.bbdy 
-{
-    text-align: left;
-    margin: 0;
-}
+    <header>
 
-.max
-{
-    text-align: left;
-    max-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-}
+        <div class="post-container">                
+            <div class="post-thumb"><img src="logo.png" /></div>
+            <div>
 
-body {
+                <nav class="list1">
+                    <ol>
+                      <li class="list1"><a href="www.kubsu.ru">Ссылка 1</a></li>
+                      <li class="list1"><a href="www.kubsu.ru">Ссылка 2</a></li>
+                      <li class="list1"><a href="www.kubsu.ru">Ссылка 3</a></li>
+                    </ol>
+                </nav>
+
+                <h3 class="post-title" >Название сайта</h3>
+                <p> </p>
+          </div>
+        </div>
+
+      </header>
+
+    <head>
+        <title> Название сайта </title>
+        <meta name="Website name"> 
+    </head>
+  </section >
+
+    <li class="plist max" >
+        <ol>
+            <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+
+            <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+            
+            <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+           </ol>
+    </li>
+
+    <table class="plist table" >
+        
+        <tr class="off max">
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+        </tr>
+        <tr class="on max">
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+        </tr>
+        <tr class="off max">
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+          </tr>
+        <tr class="on max">
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+          </tr>
+          <tr class="off max">
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+          </tr>
+          <tr class="on max">
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+          </tr>
+      </table>
+
+ <section class = "plist max"> 
+    <form>
+      <label for="fname">ФИО:</label><br>
+      <input type="text" id="fname" name="fname"><br>
+
+      <label for="fnumber">Телефон:</label><br>
+      <input type="tel" id="fnumber" name="fnumber"><br>
+
+      <label for="fmail">Почта:</label><br>
+      <input type="email" id="fmail" name="fmail"><br>
+
+      <label for="fdate">Дата рождения:</label><br>
+      <input type="date" id="fdate" name="fdate"><br>
+
+      <p>Пол:</p>
+      <div>
+        <input type="radio" id="contactChoice1" name="contact" value="male">
+        <label for="contactChoice1">Мужской</label>
     
-}
+        <input type="radio" id="contactChoice2" name="contact" value="female">
+        <label for="contactChoice2">Женский</label>
+    
+        <input type="radio" id="contactChoice3" name="contact" value="NA">
+        <label for="contactChoice3">Не указывать</label>
+      </div>
+    
+
+    <p><b>Любимые языки программирования:</b></p>
+    <label for="langs"></label>
+      <select name="langs" id="langs" multiple="multiple">
+
+      <option value="Pascal">Pascal</option>
+      <option value="C">C</option>
+      <option value="C++">C++</option>
+      <option value="JavaScript">JavaScript</option>
+      <option value="PHP">PHP</option>
+      <option value="Python">Python</option>
+      <option value="Java">Java</option>
+      <option value="Haskel">Haskel</option>
+      <option value="Clojure">Clojure</option>
+      <option value="Prolog">Prolog</option>
+      <option value="Scala">Scala</option>
+      </select>
+
+      <p><b>Ваша биография:</b></p>
+      <p><textarea name="comment"></textarea></p>
+
+      <input type="checkbox" id="check" name="check" value="">
+      <label for="check">С контрактом ознакомлен(а) </label><br>
+
+      <button type="submit" name="save_button">Сохранить</button>
+
+  </form>
+</section>
+
+<section > 
+  <footer>
+      <p>(c) Артём Шумайлов</p>
+    </footer>
+</section>
+
+</body>
+
+</html>
