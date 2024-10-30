@@ -37,17 +37,33 @@ footer
 }
 .table
 {
+
     border-collapse:collapse;
+    max-width: 960px;
+    margin-left: 290px; 
+    margin-right: auto;
+}
+td
+{
+    text-align: center;
+    padding:10px; border: 1px solid #333; 
 }
 
 .off
 {
+    
+    max-width: 960px;
+    margin-left: 0; 
+    margin-right: auto;
     background-color: red;
 }
 
 .on
 {
-
+    max-width: 960px;
+    margin-left: 0; 
+    margin-right: auto;
+    background-color: #45a1ff;
 }
 
 .bbdy 
