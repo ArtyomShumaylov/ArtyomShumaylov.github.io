@@ -35,13 +35,8 @@ footer
     box-sizing: border-box;
     width: 100%;
 }
-.table
-{
-
-    border-collapse:collapse;
-    max-width: 960px;
-    margin-left: 290px; 
-    margin-right: auto;
+.table {
+    margin-left: 0; 
 }
 td
 {
@@ -72,13 +67,11 @@ td
     margin: 0;
 }
 
-.max
-{
-    text-align: left;
+.max {
     max-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto; 
 }
+
 
 body {
     
