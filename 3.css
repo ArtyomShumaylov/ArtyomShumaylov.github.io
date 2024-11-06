@@ -1,0 +1,165 @@
+.myDiv 
+{
+    float: left;
+    height: 100px;
+    background-color: #45a1ff;
+    display: inline-block; 
+    margin: 1px;
+    text-align: center;
+  }
+  .d1 
+{
+    margin-left: 0;
+    margin-right: 1%;
+    width: 48%;
+}
+.d2 
+{
+    margin-right: 0;
+    margin-left: 1%;
+    width: 49%;
+}
+.d3
+{
+
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.list1
+{
+    margin-left: 0;
+    text-align: left;
+}
+
+
+.table
+{
+    width: 100%;
+    border-collapse:collapse;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    
+}
+td
+    {
+        text-align: center;
+        padding:10px; border: 1px solid #333; 
+    }
+.off
+{
+    
+    background-color: red;
+}
+
+.on
+{
+    background-color: #45a1ff;
+}
+
+.plist
+{
+    background-color: #45a1ff;
+    margin: 2%;
+}
+.plist1
+{
+    background-color: #45a1ff;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+footer 
+{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    background-color: #45a1ff;
+    color: #fff;
+}
+
+  @media only screen and (min-width: 768px) {
+
+    .myDiv {
+        height: 150px;
+        width: 33.3%;
+        background-color: #45a1ff;
+        display: inline-block; 
+        margin: 0%; 
+        text-align: center;
+        
+    }
+
+    img{
+        width: 100%;
+        height: 150px;
+    }
+
+    .d1 
+    {
+        float: left;
+    }
+    .d2
+    {
+        
+        float:left;
+        margin-left: 0;
+        font-size: xx-large;
+    }
+    .d3{
+        margin-bottom: 2%;
+    }
+    
+    .list1
+    {
+        display:inline-block;
+        position:relative;
+    }
+
+    .table {
+        margin-top: 5%;
+        max-width: 450px;
+        margin-left: 0;
+    }
+    td
+    {
+        text-align: center;
+        padding:10px; border: 1px solid #333; 
+    }
+    
+    .off
+    {
+        background-color: red;
+    }
+    
+    .on
+    {
+        background-color: #45a1ff;
+    }
+    
+    
+    .max 
+    {
+        margin-left: auto;  
+        margin-right: auto;
+        max-width: 960px;
+    }
+    
+    .plist
+    {   
+        background-color: #45a1ff;
+    }
+    
+    footer 
+{
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    background-color: #45a1ff;
+    color: #fff;
+}
+
+}
