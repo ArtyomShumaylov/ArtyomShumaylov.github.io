@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container text-center">
+    <div class="row my-3">
+        <div class="col-6 col-md-4 d1">
+            <img src="logo.png" class="img-fluid" alt="Логотип">
+        </div>
+        <div class="col-6 col-md-4 d2">
+            <h3 class="post-title">Название сайта</h3>
+        </div>
+        <div class="col-12 col-md-4 d3">
+            <nav>
+                <ul class="list-unstyled">
+                    <li><a href="https://www.kubsu.ru" class="text-decoration-none">Ссылка меню 1</a></li>
+                    <li><a href="https://www.kubsu.ru" class="text-decoration-none">Ссылка меню 2</a></li>
+                    <li><a href="https://www.kubsu.ru" class="text-decoration-none">Ссылка меню 3</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container max">
+    <table class="table table-bordered text-center">
+        <tr class="off">
+            <td colspan="3">3</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr class="on">
+            <td>1</td>
+            <td>1</td>
+            <td colspan="2">2</td>
+            <td>1</td>
+        </tr>
+        <tr class="off">
+            <td>1</td>
+            <td colspan="4">4</td>
+        </tr>
+        <tr class="on">
+            <td>1</td>
+            <td>1</td>
+            <td rowspan="2">1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr class="off">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr class="on">
+            <td colspan="5">5</td>
+        </tr>
+    </table>
+</div>
+
+<form class="container plist mt-4">
+    <div class="mb-3">
+        <label for="fname" class="form-label">ФИО:</label>
+        <input type="text" id="fname" name="fname" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="fnumber" class="form-label">Телефон:</label>
+        <input type="tel" id="fnumber" name="fnumber" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="fmail" class="form-label">Почта:</label>
+        <input type="email" id="fmail" name="fmail" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="fdate" class="form-label">Дата рождения:</label>
+        <input type="date" id="fdate" name="fdate" class="form-control">
+    </div>
+    <fieldset class="mb-3">
+        <legend>Пол:</legend>
+        <div class="form-check">
+            <input type="radio" id="male" name="contact" value="male" class="form-check-input">
+            <label for="male" class="form-check-label">Мужской</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="female" name="contact" value="female" class="form-check-input">
+            <label for="female" class="form-check-label">Женский</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="na" name="contact" value="NA" class="form-check-input">
+            <label for="na" class="form-check-label">Не указывать</label>
+        </div>
+    </fieldset>
+    <div class="mb-3">
+        <label for="langs" class="form-label">Любимые языки программирования:</label>
+        <select name="langs" id="langs" class="form-select" multiple>
+            <option value="Pascal">Pascal</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="PHP">PHP</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="Haskel">Haskel</option>
+            <option value="Clojure">Clojure</option>
+            <option value="Prolog">Prolog</option>
+            <option value="Scala">Scala</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="bio" class="form-label">Ваша биография:</label>
+        <textarea id="bio" name="comment" class="form-control"></textarea>
+    </div>
+    <div class="form-check mb-3">
+        <input type="checkbox" id="check" name="check" class="form-check-input">
+        <label for="check" class="form-check-label">С контрактом ознакомлен(а)</label>
+    </div>
+    <button type="submit" name="save_button" class="btn btn-primary">Сохранить</button>
+</form>
+
+<footer class="container text-center py-3 bg-primary text-white mt-4">
+    <p>(c) Артём Шумайлов</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

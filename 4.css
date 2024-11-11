@@ -1,0 +1,25 @@
+.d1, .d2, .d3 {
+    background-color: #45a1ff;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.table {
+    margin-top: 2rem;
+}
+
+.off {
+    background-color: red;
+    color: #fff;
+}
+
+.on {
+    background-color: #45a1ff;
+    color: #fff;
+}
+
+footer {
+    background-color: #45a1ff;
+    color: #fff;
+}
