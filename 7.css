@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.gallery-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+}
+
+.slider {
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.slider img {
+    width: 33.33%;
+    flex-shrink: 0;
+    height: auto;
+}
+
+.nav-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: #333;
+}
+
+.pager {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+    .slider img {
+        width: 100%;
+    }
+}
