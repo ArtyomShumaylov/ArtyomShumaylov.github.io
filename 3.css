@@ -29,6 +29,7 @@
 
 .list1
 {
+    margin-top: 1%;
     margin-left: 0;
     text-align: left;
 }
@@ -63,6 +64,12 @@ td
 {
     background-color: #45a1ff;
     
+}
+.selection
+{
+    margin-top: 1%;
+    margin-bottom: 1%;
+
 }
 .plist1
 {
