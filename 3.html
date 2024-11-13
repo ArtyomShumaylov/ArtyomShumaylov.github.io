@@ -12,7 +12,7 @@
       <h3 class="post-title" >Название сайта</h3>
     </div>
 
-    <div class="myDiv d3">
+    <div class="myDiv d3 selection">
       <nav class="list1">
         <ol>
           <li class="list1"><a href="www.kubsu.ru">Ссылка меню 1</a></li>
@@ -22,7 +22,7 @@
       </nav>
     </div>
 
-    <div class="max">
+    <div class="max selection ">
       <table class="table" >
         
         <tr class="off">
@@ -59,7 +59,7 @@
       </table>
     </div>
     
-    <form class = "max plist ">
+    <form class = "max plist selection">
       <label for="fname">ФИО:</label><br>
       <input type="text" id="fname" name="fname"><br>
 
@@ -73,7 +73,7 @@
       <input type="date" id="fdate" name="fdate"><br>
 
       <p>Пол:</p>
-      <div>
+      <div class = "selection">
         <input type="radio" id="contactChoice1" name="contact" value="male">
         <label for="contactChoice1">Мужской</label>
     
@@ -86,7 +86,7 @@
     
 
     <p><b>Любимые языки программирования:</b></p>
-    <label for="langs"></label>
+    <label for="langs" class = "selection"></label>
       <select name="langs" id="langs" multiple="multiple">
 
       <option value="Pascal">Pascal</option>
@@ -102,7 +102,7 @@
       <option value="Scala">Scala</option>
       </select>
 
-      <p><b>Ваша биография:</b></p>
+      <p class = "selection"><b>Ваша биография:</b></p>
       <p><textarea name="comment"></textarea></p>
 
       <input type="checkbox" id="check" name="check" value="">
