@@ -1,5 +1,4 @@
 body {
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,8 +23,9 @@ label, h1 {
 }
 
 input, select, button {
+    cursor: pointer;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     margin: 10px 0;
     font-size: 16px;
     border-radius: 4px;
@@ -33,14 +33,14 @@ input, select, button {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: blue;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color:rgb(46, 46, 255);
 }
 
 #result {
