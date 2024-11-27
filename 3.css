@@ -34,7 +34,6 @@
     text-align: left;
 }
 
-
 .table
 {
     width: 100%;
@@ -63,7 +62,7 @@ td
 .plist
 {
     background-color: #45a1ff;
-    
+
 }
 .selection
 {
@@ -158,6 +157,7 @@ footer
     .plist
     {   
         background-color: #45a1ff;
+        
     }
     
     footer 
