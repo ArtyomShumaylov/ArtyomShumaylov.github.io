@@ -16,9 +16,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     productTypeRadios.forEach(radio => {
         radio.addEventListener('change', handleProductTypeChange);
+        radio.addEventListener('change', calculateTotal);
     });
 
-    calculateBtn.addEventListener('click', calculateTotal);
+    
+    quantityInput.addEventListener('change', calculateTotal);
+    productTypeRadios.addEventListener('change', calculateTotal);
+    optionSection.addEventListener('change', calculateTotal);
+    propertySection.addEventListener('change', calculateTotal);
+    optionSelect.addEventListener('change', calculateTotal);
+    propertyCheckbox.addEventListener('change', calculateTotal);
+    
 
     function handleProductTypeChange() {
         const selectedType = document.querySelector('input[name="productType"]:checked').value;
