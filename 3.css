@@ -1,172 +1,99 @@
-.myDiv 
-{
-    float: left;
-    height: 100px;
+/* Базовые стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.header, .menu, .content, .footer {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.header {
     background-color: #45a1ff;
-    display: inline-block; 
-    margin: 1px;
-    text-align: center;
-  }
-  .d1 
-{
-    margin-left: 0;
-    margin-right: 1%;
-    width: 48%;
+    color: white;
+    display: flex;
+    align-items: center;
 }
-.d2 
-{
-    margin-right: 0;
-    margin-left: 1%;
-    width: 49%;
-}
-.d3
-{
 
-    margin-left: 0;
-    margin-right: 0;
+.post-container {
+    display: flex;
+    align-items: center;
+}
+
+.post-thumb img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; 
+}
+
+.menu ol {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.table-section, .links, .form-section {
+    background-color: white;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.table {
     width: 100%;
+    border-collapse: collapse;
 }
 
-.list1
-{
-    margin-top: 1%;
-    margin-left: 0;
-    text-align: left;
-}
-
-.table
-{
-    width: 100%;
-    border-collapse:collapse;
-    margin-left: auto;
-    margin-right: auto;
+.table td {
+    border: 1px solid #333;
+    padding: 5px;
     text-align: center;
-    
 }
-td
-    {
-        text-align: center;
-        padding:10px; border: 1px solid #333; 
-    }
-.off
-{
-    
+
+.table tr:nth-child(odd) {
     background-color: red;
 }
 
-.on
-{
+.table tr:nth-child(even) {
+    background-color: blue;
+    color: white;
+}
+
+.footer {
     background-color: #45a1ff;
+    color: white;
+    text-align: center;
 }
 
-.plist
-{
-    background-color: #45a1ff;
-
-}
-.selection
-{
-    margin-top: 1%;
-    margin-bottom: 1%;
-
-}
-.plist1
-{
-    background-color: #45a1ff;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-footer 
-{
-    width: 100%;
-    display: flex;
-    justify-content: left;
-    padding: 5px;
-    background-color: #45a1ff;
-    color: #fff;
-}
-
-  @media only screen and (min-width: 768px) {
-
-    .myDiv {
-        height: 150px;
-        width: 33.3%;
-        background-color: #45a1ff;
-        display: inline-block; 
-        margin: 0%; 
-        text-align: center;
-        
+@media (min-width: 768px) {
+    .menu ol {
+        flex-direction: column; 
     }
 
-    img{
-        width: 100%;
-        height: 150px;
+    .content {
+        display: flex;
+        flex-direction: column; 
+        gap: 10px;
     }
 
-    .d1 
-    {
-        float: left;
+    .table-section,
+    .links,
+    .form-section {
+        flex: 1 1 100%;
     }
-    .d2
-    {
-        
-        float:left;
-        margin-left: 0;
-        font-size: xx-large;
-    }
-    .d3{
-        margin-bottom: 2%;
-    }
-    
-    .list1
-    {
-        display:inline-block;
-        position:relative;
-    }
-
-    .table {
-        margin-top: 5%;
-        max-width: 450px;
-        margin-left: 0;
-    }
-    td
-    {
-        text-align: center;
-        padding:10px; border: 1px solid #333; 
-    }
-    
-    .off
-    {
-        background-color: red;
-    }
-    
-    .on
-    {
-        background-color: #45a1ff;
-    }
-    
-    
-    .max 
-    {
-        margin-left: auto;  
-        margin-right: auto;
-        max-width: 960px;
-    }
-    
-    .plist
-    {   
-        background-color: #45a1ff;
-        
-    }
-    
-    footer 
-{
-    display: flex;
-    justify-content: left;
-    padding: 5px;
-    background-color: #45a1ff;
-    color: #fff;
-}
-
 }
