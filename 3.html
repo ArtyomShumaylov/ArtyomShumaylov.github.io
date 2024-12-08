@@ -1,128 +1,117 @@
 <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="3.css">
+    <title>Название сайта</title>
+</head>
+<body>
+    <header class="header">
+        <div class="post-container">
+            <div class="post-thumb">
+                <img src="logo.png" alt="Логотип">
+            </div>
+            <h1 class="post-title">Название сайта</h1>
+        </div>
+    </header>
 
-<html>
-
-    <link rel = "stylesheet" href="3.css">
-
-    <div class="myDiv d1">
-       <img src="logo.png" /> 
-    </div>
-
-    <div class="myDiv d2">
-      <h3 class="post-title" >Название сайта</h3>
-    </div>
-
-    <div class="myDiv d3 selection">
-      <nav class="list1">
+    <nav class="menu">
         <ol>
-          <li class="list1"><a href="www.kubsu.ru">Ссылка меню 1</a></li>
-          <li class="list1"><a href="www.kubsu.ru">Ссылка меню 2</a></li>
-          <li class="list1"><a href="www.kubsu.ru">Ссылка меню 3</a></li>
+            <li><a href="https://www.kubsu.ru">Ссылка меню 1</a></li>
+            <li><a href="https://www.kubsu.ru">Ссылка 2</a></li>
+            <li><a href="https://www.kubsu.ru">Ссылка 3</a></li>
         </ol>
-      </nav>
-    </div>
+    </nav>
 
-    <li class="plist max" >
-      <ol>
-          <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
+    <main class="content">
+        <section class="table-section">
+            <h2>Таблица</h2>
+            <table class="table">
+                <tr>
+                    <td colspan="3">3</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td colspan="2">2</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td colspan="4">4</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td rowspan="2">1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td colspan="5">5</td>
+                </tr>
+            </table>
+        </section>
 
-          <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
-          
-          <li class="plist"> <a href="https://shorturl.at/MB9PF" title="Текст при наведении">Ссылка на главную kubsu.ru </a> </li>
-         </ol>
-    </li>
-    <div class="max selection ">
-      <table class="table" >
-        
-        <tr class="off">
-          <td colspan="3">3</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
-        <tr class="on">
-          <td>1</td>
-          <td>1</td>
-          <td colspan="2">2</td>
-          <td>1</td>
-        </tr>
-        <tr class="off">
-            <td>1</td>
-            <td colspan="4">4</td>
-          </tr>
-        <tr class="on">
-            <td>1</td>
-            <td>1</td>
-            <td rowspan="2">1</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
-          <tr class="off ">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
-          <tr class="on ">
-            <td colspan="5">5</td>
-          </tr>
-      </table>
-    </div>
-    
-    <form class = "max plist selection">
-      <label for="fname">ФИО:</label><br>
-      <input type="text" id="fname" name="fname"><br>
+        <section class="links">
+            <h2>Список гиперссылок</h2>
+            <ol>
+                <li><a href="https://shorturl.at/MB9PF">Ссылка на главную kubsu.ru</a></li>
+                <li><a href="https://shorturl.at/MB9PF">Ссылка на главную kubsu.ru</a></li>
+                <li><a href="https://shorturl.at/MB9PF">Ссылка на главную kubsu.ru</a></li>
+            </ol>
+        </section>
 
-      <label for="fnumber">Телефон:</label><br>
-      <input type="tel" id="fnumber" name="fnumber"><br>
+        <section class="form-section">
+            <h2>Форма</h2>
+            <form>
+                <label for="fname">ФИО:</label><br>
+                <input type="text" id="fname" name="fname"><br>
 
-      <label for="fmail">Почта:</label><br>
-      <input type="email" id="fmail" name="fmail"><br>
+                <label for="fnumber">Телефон:</label><br>
+                <input type="tel" id="fnumber" name="fnumber"><br>
 
-      <label for="fdate">Дата рождения:</label><br>
-      <input type="date" id="fdate" name="fdate"><br>
+                <label for="fmail">Почта:</label><br>
+                <input type="email" id="fmail" name="fmail"><br>
 
-      <p>Пол:</p>
-      <div class = "selection">
-        <input type="radio" id="contactChoice1" name="contact" value="male">
-        <label for="contactChoice1">Мужской</label>
-    
-        <input type="radio" id="contactChoice2" name="contact" value="female">
-        <label for="contactChoice2">Женский</label>
-    
-        <input type="radio" id="contactChoice3" name="contact" value="NA">
-        <label for="contactChoice3">Не указывать</label>
-      </div>
-    
+                <label for="fdate">Дата рождения:</label><br>
+                <input type="date" id="fdate" name="fdate"><br>
 
-    <p><b>Любимые языки программирования:</b></p>
-    <label for="langs" class = "selection"></label>
-      <select name="langs" id="langs" multiple="multiple">
+                <p>Пол:</p>
+                <div>
+                    <input type="radio" id="contactChoice1" name="contact" value="male">
+                    <label for="contactChoice1">Мужской</label>
+            
+                    <input type="radio" id="contactChoice2" name="contact" value="female">
+                    <label for="contactChoice2">Женский</label>
+            
+                    <input type="radio" id="contactChoice3" name="contact" value="NA">
+                    <label for="contactChoice3">Не указывать</label>
+                </div>
 
-      <option value="Pascal">Pascal</option>
-      <option value="C">C</option>
-      <option value="C++">C++</option>
-      <option value="JavaScript">JavaScript</option>
-      <option value="PHP">PHP</option>
-      <option value="Python">Python</option>
-      <option value="Java">Java</option>
-      <option value="Haskel">Haskel</option>
-      <option value="Clojure">Clojure</option>
-      <option value="Prolog">Prolog</option>
-      <option value="Scala">Scala</option>
-      </select>
+                <p><b>Ваша биография:</b></p>
+                <textarea name="comment"></textarea>
 
-      <p class = "selection"><b>Ваша биография:</b></p>
-      <p><textarea name="comment"></textarea></p>
+                <p>
+                    <input type="checkbox" id="check" name="check">
+                    <label for="check">С контрактом ознакомлен(а)</label>
+                </p>
+                <button type="submit">Сохранить</button>
+            </form>
+        </section>
+    </main>
 
-      <input type="checkbox" id="check" name="check" value="">
-      <label for="check">С контрактом ознакомлен(а) </label><br>
-
-      <button type="submit" name="save_button">Сохранить</button>
-
-  </form>
-      
-  <footer>
-    <p>(c) Артём Шумайлов</p>
-  </footer>
-
+    <footer class="footer">
+        <p>&copy; Артём Шумайлов</p>
+    </footer>
+</body>
 </html>
