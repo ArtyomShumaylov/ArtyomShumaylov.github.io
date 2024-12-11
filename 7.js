@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSliderPosition() {
         const offset = -currentIndex * (100 / imagesPerPage);
-        sliderTrack.style.transform = `translateX(${offset}%)`;
+        sliderTrack.style = `transform : translate(${offset}%, 0px)`;
+        sliderTrack.v
         currentPage.textContent = currentIndex + 1;
     }
 
