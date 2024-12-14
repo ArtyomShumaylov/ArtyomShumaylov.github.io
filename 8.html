@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="8.css">
+</head>
+<body>
+    <button class="formButton" id="openFormButton">Открыть форму для заполнения</button>
+
+    <div class="overlay" id="formOverlay">
+        <div class="popup">
+            <h2>Форма</h2>
+            <form id="feedbackForm">
+                <input type="text" id="name" placeholder="ФИО" required>
+                <input type="email" id="email" placeholder="Почта" required>
+                <input type="tel" id="phone" placeholder="Телефон" required>
+                <input type="text" id="organization" placeholder="Организация">
+                <textarea id="message" rows="4" placeholder="Сообщение" required></textarea>
+                <div class="checkbox">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">Я согласен(а) с политикой соглашения</label>
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="8.js"></script>
+</body>
+</html>
