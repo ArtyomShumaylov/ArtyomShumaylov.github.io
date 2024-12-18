@@ -47,7 +47,7 @@ feedbackForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(formData),
         });
         if (response.ok) {
-            alert('Message sent successfully!');
+            alert('Сообщение отослано успешно!');
             feedbackForm.reset();
             localStorage.removeItem('feedbackFormData');
             togglePopup(false);
@@ -55,7 +55,7 @@ feedbackForm.addEventListener('submit', async (e) => {
             throw new Error('Failed to send message');
         }
     } catch (error) {
-        alert('Error sending message: ' + error.message);
+        alert('Ошибка: ' + error.message);
     }
 });
 
