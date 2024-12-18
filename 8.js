@@ -39,7 +39,7 @@ feedbackForm.addEventListener('submit', async (e) => {
     };
 
     try {
-        const response = await fetch('https://formcarry.com/s/your-endpoint', {
+        const response = await fetch('https://formcarry.com/s/FbtsF_FFZji', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
