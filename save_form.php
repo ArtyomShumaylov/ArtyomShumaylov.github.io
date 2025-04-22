@@ -13,7 +13,7 @@ try {
 
 $errors = [];
 $fio = trim($_POST['fio']);
-if (!preg_match('/^[А-Яа-яЁё\s]+$/u', $fio) || mb_strlen($fio) > 150) {
+if (!preg_match('/^[А-Яа-яЁё\s]+$/u', $fio)) {
     $errors[] = "ФИО должно содержать только буквы и пробелы, не более 150 символов.";
 }
 
