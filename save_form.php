@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'your_database';
-$user = 'your_user';
-$pass = 'your_password';
+$dbname = 'u68534';
+$user = 'u68534';
+$pass = '9542530';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass,
@@ -11,7 +11,6 @@ try {
     die("Ошибка подключения: " . $e->getMessage());
 }
 
-// Валидация
 $errors = [];
 $fio = trim($_POST['fio']);
 if (!preg_match('/^[А-Яа-яЁё\s]+$/u', $fio) || mb_strlen($fio) > 150) {
@@ -61,7 +60,6 @@ if (!empty($errors)) {
     exit();
 }
 
-// Сохраняем данные
 try {
     $pdo->beginTransaction();
     $stmt = $pdo->prepare("INSERT INTO applications (fio, phone, email, birthdate, gender, bio, contract_accepted)
@@ -76,7 +74,7 @@ try {
     }
 
     $pdo->commit();
-    echo "<h3>Данные успешно сохранены!</h3><a href='index.html'>Назад</a>";
+    echo "<h3> Данные успешно сохранены! </h3><a href='index.html'> Назад</a>";
 } catch (Exception $e) {
     $pdo->rollBack();
     die("Ошибка при сохранении: " . $e->getMessage());
