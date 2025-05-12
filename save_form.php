@@ -1,82 +1,97 @@
 <?php
-$host = 'localhost';
-$dbname = 'u68534';
-$user = 'u68534';
-$pass = '9542530';
+session_start();
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass,
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-} catch (PDOException $e) {
-    die("Ошибка подключения: " . $e->getMessage());
-}
+// Регулярные выражения для валидации
+$patterns = [
+    'fio' => '/^[А-Яа-яЁёA-Za-z\s\-]{1,150}$/u',
+    'phone' => '/^\+?[0-9\s\-\(\)]{7,20}$/',
+    'email' => '/^[^\s@]+@[^\s@]+\.[^\s@]+$/',
+    'birthdate' => '/^\d{4}-\d{2}-\d{2}$/',
+    'gender' => '/^(М|Ж)$/u',
+    'languages' => '/^(Pascal|C|C\+\+|JavaScript|PHP|Python|Java|Haskell|Clojure|Prolog|Scala|Go)$/',
+    'bio' => '/^[^<>]{1,1000}$/u',
+    'contract' => '/^on$/'
+];
+
+// Список всех полей
+$fields = ['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio', 'contract'];
 
 $errors = [];
-$fio = trim($_POST['fio']);
-if (!preg_match('/^[А-Яа-яЁё\s]+$/u', $fio)) {
-    $errors[] = "ФИО должно содержать только буквы и пробелы, не более 150 символов.";
-}
+$values = [];
 
-$phone = trim($_POST['phone']);
-if (!preg_match('/^[0-9+\-\s()]+$/', $phone)) {
-    $errors[] = "Некорректный телефон.";
-}
-
-$email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
-if (!$email) {
-    $errors[] = "Некорректный email.";
-}
-
-$birthdate = $_POST['birthdate'];
-if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate)) {
-    $errors[] = "Некорректная дата рождения.";
-}
-
-$gender = $_POST['gender'];
-if (!in_array($gender, ['М', 'Ж'])) {
-    $errors[] = "Пол должен быть 'М' или 'Ж'.";
-}
-
-$languages = $_POST['languages'] ?? [];
-$valid_languages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskell', 'Clojure', 'Prolog', 'Scala', 'Go'];
-foreach ($languages as $lang) {
-    if (!in_array($lang, $valid_languages)) {
-        $errors[] = "Недопустимый язык программирования: $lang";
+// Обработка и валидация
+foreach ($fields as $field) {
+    if (!isset($_POST[$field])) {
+        $errors[$field] = 'Поле обязательно для заполнения.';
+        continue;
     }
+
+    $value = $_POST[$field];
+
+    if ($field === 'languages') {
+        if (!is_array($value) || count($value) == 0) {
+            $errors[$field] = 'Выберите хотя бы один язык.';
+        } else {
+            foreach ($value as $lang) {
+                if (!preg_match($patterns[$field], $lang)) {
+                    $errors[$field] = 'Недопустимый язык программирования.';
+                    break;
+                }
+            }
+        }
+    } elseif (!preg_match($patterns[$field], $value)) {
+        switch ($field) {
+            case 'fio':
+                $errors[$field] = 'ФИО может содержать только буквы, пробелы и дефисы.';
+                break;
+            case 'phone':
+                $errors[$field] = 'Телефон может содержать только цифры, +, -, пробелы и скобки.';
+                break;
+            case 'email':
+                $errors[$field] = 'Неверный формат email.';
+                break;
+            case 'birthdate':
+                $errors[$field] = 'Неверный формат даты.';
+                break;
+            case 'gender':
+                $errors[$field] = 'Выберите пол.';
+                break;
+            case 'bio':
+                $errors[$field] = 'Биография не должна содержать HTML-теги.';
+                break;
+            case 'contract':
+                $errors[$field] = 'Вы должны принять условия.';
+                break;
+            default:
+                $errors[$field] = 'Неверное значение.';
+        }
+    }
+
+    $values[$field] = $value;
 }
 
-$bio = trim($_POST['bio']);
-$contract = isset($_POST['contract']) ? 1 : 0;
-if (!$contract) {
-    $errors[] = "Необходимо согласие с контрактом.";
-}
-
+// Ошибки — возвращаем обратно с Cookies
 if (!empty($errors)) {
-    echo "<h3>Ошибки:</h3><ul>";
-    foreach ($errors as $error) {
-        echo "<li>$error</li>";
-    }
-    echo "</ul><a href='javascript:history.back()'>Назад</a>";
+    setcookie('form_errors', serialize($errors), 0, '/');
+    setcookie('form_values', serialize($values), 0, '/');
+    header('Location: index.php');
     exit();
 }
 
-try {
-    $pdo->beginTransaction();
-    $stmt = $pdo->prepare("INSERT INTO applications (fio, phone, email, birthdate, gender, bio, contract_accepted)
-                           VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$fio, $phone, $email, $birthdate, $gender, $bio, $contract]);
-
-    $app_id = $pdo->lastInsertId();
-
-    $stmt_lang = $pdo->prepare("INSERT INTO languages (application_id, language) VALUES (?, ?)");
-    foreach ($languages as $lang) {
-        $stmt_lang->execute([$app_id, $lang]);
+// Успех — сохраняем значения в Cookies на 1 год
+foreach ($values as $key => $val) {
+    $cookieName = 'form_saved_' . $key;
+    if (is_array($val)) {
+        setcookie($cookieName, serialize($val), time() + 365 * 24 * 60 * 60, '/');
+    } else {
+        setcookie($cookieName, $val, time() + 365 * 24 * 60 * 60, '/');
     }
-
-    $pdo->commit();
-    echo "<h3> Данные успешно сохранены! </h3><a href='index.html'> Назад</a>";
-} catch (Exception $e) {
-    $pdo->rollBack();
-    die("Ошибка при сохранении: " . $e->getMessage());
 }
-?>
+
+// Очищаем временные Cookies
+setcookie('form_errors', '', time() - 3600, '/');
+setcookie('form_values', '', time() - 3600, '/');
+
+// Перенаправление обратно
+header('Location: index.php');
+exit();
