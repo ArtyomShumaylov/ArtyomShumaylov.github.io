@@ -2,7 +2,7 @@
 $errors = isset($_COOKIE['form_errors']) ? unserialize($_COOKIE['form_errors']) : [];
 $values = isset($_COOKIE['form_values']) ? unserialize($_COOKIE['form_values']) : [];
 
-foreach (['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio'] as $field) {
+foreach (['fio', 'Телефон', 'email', 'birthdate', 'gender', 'languages', 'bio'] as $field) {
     if (!isset($values[$field]) && isset($_COOKIE['form_saved_' . $field])) {
         $cookieValue = $_COOKIE['form_saved_' . $field];
         $values[$field] = is_array(@unserialize($cookieValue)) ? unserialize($cookieValue) : $cookieValue;
@@ -37,7 +37,7 @@ foreach (['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio'] as
   </label><br><br>
 
   <label>Телефон:<br>
-      <input type="tel" name="phone" value="<?= htmlspecialchars($values['phone'] ?? '') ?>" class="<?= isset($errors['phone']) ? 'error' : '' ?>" required>
+      <input type="tel" name="Телефон" value="<?= htmlspecialchars($values['Телефон'] ?? '') ?>" class="<?= isset($errors['Телефон']) ? 'error' : '' ?>" required>
   </label><br><br>
 
   <label>Email:<br>
