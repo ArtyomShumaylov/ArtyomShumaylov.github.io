@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Регулярные выражения для валидации
 $patterns = [
     'fio' => '/^[А-Яа-яЁёA-Za-z\s\-]{1,150}$/u',
     'phone' => '/^\+?[0-9\s\-\(\)]{7,20}$/',
@@ -13,13 +12,11 @@ $patterns = [
     'contract' => '/^on$/'
 ];
 
-// Список всех полей
 $fields = ['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio', 'contract'];
 
 $errors = [];
 $values = [];
 
-// Обработка и валидация
 foreach ($fields as $field) {
     if (!isset($_POST[$field])) {
         $errors[$field] = 'Поле обязательно для заполнения.';
@@ -70,7 +67,6 @@ foreach ($fields as $field) {
     $values[$field] = $value;
 }
 
-// Ошибки — возвращаем обратно с Cookies
 if (!empty($errors)) {
     setcookie('form_errors', serialize($errors), 0, '/');
     setcookie('form_values', serialize($values), 0, '/');
@@ -78,7 +74,6 @@ if (!empty($errors)) {
     exit();
 }
 
-// Успех — сохраняем значения в Cookies на 1 год
 foreach ($values as $key => $val) {
     $cookieName = 'form_saved_' . $key;
     if (is_array($val)) {
@@ -88,10 +83,8 @@ foreach ($values as $key => $val) {
     }
 }
 
-// Очищаем временные Cookies
 setcookie('form_errors', '', time() - 3600, '/');
 setcookie('form_values', '', time() - 3600, '/');
 
-// Перенаправление обратно
 header('Location: index.php');
 exit();

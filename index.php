@@ -25,7 +25,7 @@ foreach (['fio', 'Телефон', 'email', 'birthdate', 'gender', 'languages', 
         <p>Пожалуйста, исправьте ошибки:</p>
         <ul>
             <?php foreach ($errors as $field => $msg): ?>
-                <li><strong><?= htmlspecialchars($field) ?>:</strong> <?= htmlspecialchars($msg) ?></li>
+                <li><?= htmlspecialchars($msg) ?></li>
             <?php endforeach; ?>
         </ul>
     </div>
