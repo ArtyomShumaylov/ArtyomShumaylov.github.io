@@ -2,7 +2,7 @@
 $errors = isset($_COOKIE['form_errors']) ? unserialize($_COOKIE['form_errors']) : [];
 $values = isset($_COOKIE['form_values']) ? unserialize($_COOKIE['form_values']) : [];
 
-foreach (['fio', 'Телефон', 'email', 'birthdate', 'gender', 'languages', 'bio'] as $field) {
+foreach (['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio'] as $field) {
     if (!isset($values[$field]) && isset($_COOKIE['form_saved_' . $field])) {
         $cookieValue = $_COOKIE['form_saved_' . $field];
         $values[$field] = is_array(@unserialize($cookieValue)) ? unserialize($cookieValue) : $cookieValue;
