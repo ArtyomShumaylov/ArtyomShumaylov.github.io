@@ -37,8 +37,8 @@ foreach (['fio', 'Телефон', 'email', 'birthdate', 'gender', 'languages', 
   </label><br><br>
 
   <label>Телефон:<br>
-      <input type="tel" name="Телефон" value="<?= htmlspecialchars($values['Телефон'] ?? '') ?>" class="<?= isset($errors['Телефон']) ? 'error' : '' ?>" required>
-  </label><br><br>
+    <input type="tel" name="phone" value="<?= htmlspecialchars($values['phone'] ?? '') ?>" class="<?= isset($errors['phone']) ? 'error' : '' ?>" required>
+</label>
 
   <label>Email:<br>
       <input type="email" name="email" value="<?= htmlspecialchars($values['email'] ?? '') ?>" class="<?= isset($errors['email']) ? 'error' : '' ?>" required>
