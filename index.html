@@ -1,19 +1,56 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8"> 
-    <title></title> 
     <meta charset="UTF-8">
-    <title>Форма регистрации</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма регистрации и входа</title>
+    <link rel="stylesheet" href="style.css"> <!-- Если у тебя есть стили -->
 </head>
 
 <body>
 
 <h2>Шумайлов Артём Олегович</h2>
     
-<h2>Задание 4/3</h2>
+<h2>Задание 5/4/3</h2>
 
+<!-- Форма регистрации -->
+<h3>Регистрация</h3>
+<form action="index.php" method="POST">
+  <label>Логин:<br>
+      <input type="text" name="username" maxlength="150" required>
+  </label><br><br>
+
+  <label>Пароль:<br>
+      <input type="password" name="password" required>
+  </label><br><br>
+
+  <label>Email:<br>
+      <input type="email" name="email" required>
+  </label><br><br>
+
+  <button type="submit" name="register">Зарегистрироваться</button>
+</form>
+
+<hr>
+
+<!-- Форма входа -->
+<h3>Вход</h3>
+<form action="index.php" method="POST">
+  <label>Логин:<br>
+      <input type="text" name="username" required>
+  </label><br><br>
+
+  <label>Пароль:<br>
+      <input type="password" name="password" required>
+  </label><br><br>
+
+  <button type="submit" name="login">Войти</button>
+</form>
+
+<hr>
+
+<!-- Обычная форма с полями, которые ты используешь в текущем файле -->
 <form action="save_form.php" method="post">
   <label>ФИО:<br>
       <input type="text" name="fio" maxlength="150" required>
@@ -21,7 +58,7 @@
 
   <label>Телефон:<br>
     <input type="tel" name="phone" required>
-</label>
+  </label><br><br>
 
   <label>Email:<br>
       <input type="email" name="email" required>
@@ -78,7 +115,6 @@
 <p>5, тестовые данные, записанные в таблицу:</p>
 <img src="35.png" alt="4" width="1000" height="350">
 
-
 <h2>Задание 2</h2>
     
 <p>1, метод GET 1.0:</p>
@@ -113,7 +149,7 @@
 <p>3, команда nslookup, показывает А-записи и МХ-записи домена:</p>
 <img src="nslookup.jpg" alt="3" width="1000" height="450">
 
-<p>4, команда whois, покащывает дату регистрации домена:</p>
+<p>4, команда whois, покащивает дату регистрации домена:</p>
 <img src="4.PNG" alt="4" width="1000" height="800">
  
 <p>5, копирование репозитории гитхаба в папку:</p>

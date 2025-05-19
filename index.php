@@ -1,11 +1,51 @@
 <?php
-$errors = isset($_COOKIE['form_errors']) ? unserialize($_COOKIE['form_errors']) : [];
-$values = isset($_COOKIE['form_values']) ? unserialize($_COOKIE['form_values']) : [];
+session_start();
 
-foreach (['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio'] as $field) {
-    if (!isset($values[$field]) && isset($_COOKIE['form_saved_' . $field])) {
-        $cookieValue = $_COOKIE['form_saved_' . $field];
-        $values[$field] = is_array(@unserialize($cookieValue)) ? unserialize($cookieValue) : $cookieValue;
+if (isset($_SESSION['user_id'])) {
+    header('Location: dashboard.php'); 
+    exit();
+}
+
+$pdo = new PDO('mysql:host=localhost;dbname=u68534;charset=utf8', 'u68534', 'webpass123');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+    $stmt->execute([$username]);
+    if ($stmt->rowCount() > 0) {
+        echo "Этот логин уже занят!";
+        exit();
+    }
+
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    $stmt = $pdo->prepare('INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)');
+    $stmt->execute([$username, $password_hash, $email]);
+
+    echo "Регистрация прошла успешно!";
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+    $stmt->execute([$username]);
+    $user = $stmt->fetch();
+
+    if ($user && password_verify($password, $user['password_hash'])) {
+
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+
+        header('Location: dashboard.php'); 
+        exit();
+    } else {
+        echo "Неверный логин или пароль!";
     }
 }
 ?>
@@ -14,67 +54,37 @@ foreach (['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio'] as
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Форма регистрации</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Форма регистрации и входа</title>
 </head>
 <body>
-<h2>Форма регистрации</h2>
+<h2>Форма регистрации и входа</h2>
 
-<?php if (!empty($errors)): ?>
-    <div class="error-message">
-        <p>Пожалуйста, исправьте ошибки:</p>
-        <ul>
-            <?php foreach ($errors as $field => $msg): ?>
-                <li><?= htmlspecialchars($msg) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>
+<form action="" method="POST">
+    <h3>Регистрация</h3>
+    <label for="username">Логин:</label>
+    <input type="text" name="username" required><br><br>
 
-<form action="save_form.php" method="post">
-  <label>ФИО:<br>
-      <input type="text" name="fio" value="<?= htmlspecialchars($values['fio'] ?? '') ?>" class="<?= isset($errors['fio']) ? 'error' : '' ?>" required>
-  </label><br><br>
+    <label for="password">Пароль:</label>
+    <input type="password" name="password" required><br><br>
 
-  <label>Телефон:<br>
-    <input type="tel" name="phone" value="<?= htmlspecialchars($values['phone'] ?? '') ?>" class="<?= isset($errors['phone']) ? 'error' : '' ?>" required>
-</label>
+    <label for="email">Email:</label>
+    <input type="email" name="email" required><br><br>
 
-  <label>Email:<br>
-      <input type="email" name="email" value="<?= htmlspecialchars($values['email'] ?? '') ?>" class="<?= isset($errors['email']) ? 'error' : '' ?>" required>
-  </label><br><br>
-
-  <label>Дата рождения:<br>
-      <input type="date" name="birthdate" value="<?= htmlspecialchars($values['birthdate'] ?? '') ?>" class="<?= isset($errors['birthdate']) ? 'error' : '' ?>" required>
-  </label><br><br>
-
-  <label>Пол:<br>
-      <input type="radio" name="gender" value="М" <?= (isset($values['gender']) && $values['gender'] === 'М') ? 'checked' : '' ?>> М
-      <input type="radio" name="gender" value="Ж" <?= (isset($values['gender']) && $values['gender'] === 'Ж') ? 'checked' : '' ?>> Ж
-  </label><br><br>
-
-  <label>Любимый язык программирования:<br>
-      <select name="languages[]" multiple class="<?= isset($errors['languages']) ? 'error' : '' ?>">
-          <?php
-          $all_languages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskell', 'Clojure', 'Prolog', 'Scala', 'Go'];
-          foreach ($all_languages as $lang) {
-              $selected = (isset($values['languages']) && is_array($values['languages']) && in_array($lang, $values['languages'])) ? 'selected' : '';
-              echo "<option value=\"$lang\" $selected>$lang</option>";
-          }
-          ?>
-      </select>
-  </label><br><br>
-
-  <label>Биография:<br>
-      <textarea name="bio" rows="5" cols="50" class="<?= isset($errors['bio']) ? 'error' : '' ?>"><?= htmlspecialchars($values['bio'] ?? '') ?></textarea>
-  </label><br><br>
-
-  <label>
-      <input type="checkbox" name="contract" <?= isset($values['contract']) ? 'checked' : '' ?>>
-      С контрактом ознакомлен(а)
-  </label><br><br>
-
-  <button type="submit">Сохранить</button>
+    <button type="submit" name="register">Зарегистрироваться</button>
 </form>
+
+<hr>
+
+<form action="" method="POST">
+    <h3>Вход</h3>
+    <label for="username">Логин:</label>
+    <input type="text" name="username" required><br><br>
+
+    <label for="password">Пароль:</label>
+    <input type="password" name="password" required><br><br>
+
+    <button type="submit" name="login">Войти</button>
+</form>
+
 </body>
 </html>

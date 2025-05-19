@@ -1,69 +1,32 @@
 <?php
 session_start();
 
-$patterns = [
-    'fio' => '/^[А-Яа-яЁёA-Za-z\s\-]{1,150}$/u',
-    'phone' => '/^\+?[0-9\s\-\(\)]{7,20}$/',
-    'email' => '/^[^\s@]+@[^\s@]+\.[^\s@]+$/',
-    'birthdate' => '/^\d{4}-\d{2}-\d{2}$/',
-    'gender' => '/^(М|Ж)$/u',
-    'languages' => '/^(Pascal|C|C\+\+|JavaScript|PHP|Python|Java|Haskell|Clojure|Prolog|Scala|Go)$/',
-    'bio' => '/^[^<>]{1,1000}$/u',
-    'contract' => '/^on$/'
-];
-
 $fields = ['fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio', 'contract'];
-
 $errors = [];
 $values = [];
+
+$patterns = [
+    'fio' => '/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/u',
+    'phone' => '/^\+?[0-9\s\-\(\)]{7,15}$/',
+    'email' => '/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4}$/',
+    'birthdate' => '/^\d{4}-\d{2}-\d{2}$/',
+    'gender' => '/^(М|Ж)$/',
+    'bio' => '/^.{10,}$/', // минимум 10 символов
+];
 
 foreach ($fields as $field) {
     if (!isset($_POST[$field])) {
         $errors[$field] = 'Поле обязательно для заполнения.';
         continue;
     }
-
     $value = $_POST[$field];
-
     if ($field === 'languages') {
-        if (!is_array($value) || count($value) == 0) {
+        if (empty($value)) {
             $errors[$field] = 'Выберите хотя бы один язык.';
-        } else {
-            foreach ($value as $lang) {
-                if (!preg_match($patterns[$field], $lang)) {
-                    $errors[$field] = 'Недопустимый язык программирования.';
-                    break;
-                }
-            }
         }
     } elseif (!preg_match($patterns[$field], $value)) {
-        switch ($field) {
-            case 'fio':
-                $errors[$field] = 'ФИО может содержать только буквы, пробелы и дефисы.';
-                break;
-            case 'phone':
-                $errors[$field] = 'Поле "Телефон" должен содержать только цифры, пробелы, скобки, плюсы и дефисы и быть правильного формата';
-                break;
-            case 'email':
-                $errors[$field] = 'Неверный формат email.';
-                break;
-            case 'birthdate':
-                $errors[$field] = 'Неверный формат даты.';
-                break;
-            case 'gender':
-                $errors[$field] = 'Выберите пол.';
-                break;
-            case 'bio':
-                $errors[$field] = 'Биография не должна содержать HTML-теги.';
-                break;
-            case 'contract':
-                $errors[$field] = 'Вы должны принять условия.';
-                break;
-            default:
-                $errors[$field] = 'Неверное значение.';
-        }
+        $errors[$field] = 'Неверный формат поля ' . ucfirst($field) . '.';
     }
-
     $values[$field] = $value;
 }
 
@@ -74,17 +37,49 @@ if (!empty($errors)) {
     exit();
 }
 
-foreach ($values as $key => $val) {
-    $cookieName = 'form_saved_' . $key;
-    if (is_array($val)) {
-        setcookie($cookieName, serialize($val), time() + 365 * 24 * 60 * 60, '/');
-    } else {
-        setcookie($cookieName, $val, time() + 365 * 24 * 60 * 60, '/');
+$pdo = new PDO('mysql:host=localhost;dbname=u68534;charset=utf8', 'u68534', 'your_password_here');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if (isset($_SESSION['user_id'])) {
+    $stmt = $pdo->prepare("UPDATE users SET fio=?, phone=?, email=?, birthdate=?, gender=?, bio=? WHERE id=?");
+    $stmt->execute([
+        $values['fio'], $values['phone'], $values['email'],
+        $values['birthdate'], $values['gender'], $values['bio'],
+        $_SESSION['user_id']
+    ]);
+
+    $stmt = $pdo->prepare("DELETE FROM user_languages WHERE user_id=?");
+    $stmt->execute([$_SESSION['user_id']]);
+
+    $stmt = $pdo->prepare("INSERT INTO user_languages (user_id, language) VALUES (?, ?)");
+    foreach ($values['languages'] as $lang) {
+        $stmt->execute([$_SESSION['user_id'], $lang]);
     }
+
+    header('Location: index.php');
+    exit();
 }
 
-setcookie('form_errors', '', time() - 3600, '/');
-setcookie('form_values', '', time() - 3600, '/');
+$login = 'user' . rand(1000, 9999); 
+$password = bin2hex(random_bytes(4)); 
+$hashed = password_hash($password, PASSWORD_DEFAULT); 
+
+$stmt = $pdo->prepare("INSERT INTO users (login, password, fio, phone, email, birthdate, gender, bio)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->execute([
+    $login, $hashed, $values['fio'], $values['phone'], $values['email'],
+    $values['birthdate'], $values['gender'], $values['bio']
+]);
+
+$user_id = $pdo->lastInsertId();
+
+$stmt = $pdo->prepare("INSERT INTO user_languages (user_id, language) VALUES (?, ?)");
+foreach ($values['languages'] as $lang) {
+    $stmt->execute([$user_id, $lang]);
+}
+
+$_SESSION['user_id'] = $user_id;
 
 header('Location: index.php');
 exit();
+?>
