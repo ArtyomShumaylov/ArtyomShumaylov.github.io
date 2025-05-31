@@ -1,3 +1,15 @@
+<!-- 
+    Обработка и сохранение формы с личными данными.
+
+    Валидирует поля (ФИО, телефон, email, дата рождения и т.д.).
+
+    Если пользователь авторизован — обновляет его данные в БД.
+
+    Если не авторизован — регистрирует нового пользователя с авто-логином.
+
+    Сохраняет выбранные языки в таблицу user_languages.
+-->
+
 <?php
 session_start();
 
@@ -78,7 +90,12 @@ foreach ($values['languages'] as $lang) {
     $stmt->execute([$user_id, $lang]);
 }
 
+session_start();
+session_unset(); 
+session_regenerate_id(true);
+
 $_SESSION['user_id'] = $user_id;
+$_SESSION['username'] = $login; 
 
 header('Location: index.php');
 exit();

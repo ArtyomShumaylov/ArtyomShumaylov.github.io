@@ -1,9 +1,18 @@
+<!-- 
+    Главная страница с формами регистрации и входа
+
+    Если пользователь уже вошёл — перенаправляет на dashboard.php
+
+    Регистрация: сохраняет пользователя в БД, хеширует пароль.
+
+    Вход: авторизует и перенаправляет на dashboard.php.
+-->
 
 <?php
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php'); 
+    header('Location: dashboard.php');
     exit();
 }
 

@@ -1,3 +1,7 @@
+<!-- 
+    Уничтожает сессию и возвращает пользователя на index.php
+-->
+
 <?php
 session_start();
 session_destroy();
