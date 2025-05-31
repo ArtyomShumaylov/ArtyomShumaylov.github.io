@@ -2,6 +2,36 @@
 // Работа админа
 
 session_start();
+
+$pdo = new PDO(...); // ваше подключение к БД
+
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="Админ-панель"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Требуется авторизация';
+    exit;
+}
+
+$login = $_SERVER['PHP_AUTH_USER'];
+$password = $_SERVER['PHP_AUTH_PW'];
+
+// Для отладки:
+$stmt = $pdo->prepare("SELECT * FROM admin_users WHERE login = ?");
+$stmt->execute([$login]);
+$admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$admin) {
+    echo "Пользователь с таким логином не найден.";
+    exit();
+}
+
+if (password_verify($password, $admin['password_hash'])) {
+    echo "Успешный вход, привет, $login!";
+    // Здесь — дальше логика админки
+} else {
+    echo "Неверный пароль.";
+}
+
 require_once 'db.php'; 
 
 // --- HTTP авторизация ---
