@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . 'project_db.php';
-require_once __DIR__ . 'project_validator.php';
-require_once __DIR__ . 'project_auth.php';
+require_once __DIR__ . '/project_db.php';
+require_once __DIR__ . '/project_validator.php';
+require_once __DIR__ . '/project_auth.php';
 
 header('Content-Type: application/json');
 
