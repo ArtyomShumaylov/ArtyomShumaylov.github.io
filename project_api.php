@@ -12,7 +12,6 @@ header('Content-Type: application/json');
 session_start();
 $method = $_SERVER['REQUEST_METHOD'];
 
-ile_put_contents(__DIR__ . '/debug_input.txt', file_get_contents('php://input'));
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input) {
     http_response_code(400);
