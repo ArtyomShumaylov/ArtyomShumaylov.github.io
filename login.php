@@ -11,25 +11,22 @@
 
 session_start();
 
-$pdo = new PDO('mysql:host=localhost;dbname=u68534;charset=utf8', 'u68534', '9542530');
+$pdo = new PDO('mysql:host=localhost;dbname=testdb', 'username', 'password');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+// Получение данных из формы
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
 
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
-    $stmt->execute([$username]);
-    $user = $stmt->fetch();
+// Подготовка SQL-запроса
+$stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username AND password = :password');
+$stmt->execute(['username' => $username, 'password' => $password]);
 
-    if ($user && password_verify($password, $user['password_hash'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-
-        header('Location: dashboard.php'); 
-        exit();
-    } else {
-        echo "Неверный логин или пароль!";
-    }
+// Проверка наличия пользователя
+$user = $stmt->fetch();
+if ($user) {
+    echo 'Добро пожаловать, ' . htmlspecialchars($user['username']);
+} else {
+    echo 'Неверный логин или пароль';
 }
 ?>
 
