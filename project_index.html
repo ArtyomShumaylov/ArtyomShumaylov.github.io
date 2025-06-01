@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drupal Поддержка</title>
+    <link rel="stylesheet" href="p.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <video autoplay muted loop class="bg-video">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="header-content">
+            <h1>Поддержка сайтов на Drupal</h1>
+            <p>Сопровождение и развитие проектов</p>
+            <a href="#form" class="btn">Оставить заявку</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- секции services, pricing, team, cases, reviews, faq остаются без изменений -->
+        
+        <section class="services">
+            <!-- ... содержимое услуг ... -->
+        </section>
+
+        <section class="pricing">
+            <!-- ... содержимое тарифов ... -->
+        </section>
+
+        <section class="team">
+            <!-- ... содержимое команды ... -->
+        </section>
+
+        <section class="cases">
+            <!-- ... содержимое кейсов ... -->
+        </section>
+
+        <section class="reviews">
+            <!-- ... содержимое отзывов ... -->
+        </section>
+
+        <section class="faq">
+            <!-- ... содержимое FAQ ... -->
+        </section>
+
+        <!-- ЗАМЕНЁННАЯ СЕКЦИЯ ФОРМЫ -->
+        <section id="form" class="form-section">
+            <div class="form-container">
+                <h2>Оставить заявку</h2>
+                <form id="mainForm" method="POST" action="project_api.php">
+                    <div class="form-row">
+                        <input type="text" name="fio" placeholder="ФИО" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="tel" name="phone" placeholder="Телефон" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="date" name="birthdate" required>
+                    </div>
+                    <div class="form-row">
+                        <label><input type="radio" name="gender" value="М" required> Мужской</label>
+                        <label><input type="radio" name="gender" value="Ж" required> Женский</label>
+                    </div>
+                    <div class="form-row">
+                        <label for="languages">Любимый язык программирования:</label>
+                        <select name="languages[]" id="languages" multiple required>
+                            <option value="Pascal">Pascal</option>
+                            <option value="C">C</option>
+                            <option value="C++">C++</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                            <option value="Haskel">Haskel</option>
+                            <option value="Clojure">Clojure</option>
+                            <option value="Prolog">Prolog</option>
+                            <option value="Scala">Scala</option>
+                            <option value="Go">Go</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <textarea name="bio" placeholder="Биография" rows="4" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            <input type="checkbox" name="contract" value="on" required>
+                            С контрактом ознакомлен(а)
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit">Сохранить</button>
+                    </div>
+                </form>
+                <div id="response"></div>
+            </div>
+        </section>
+
+        <section class="social-media">
+            <h2>С нами работают</h2>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="project_form.js"></script>
+</body>
+</html>
