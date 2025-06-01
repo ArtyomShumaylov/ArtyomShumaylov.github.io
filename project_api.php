@@ -70,3 +70,7 @@ if ($method === 'PUT' && isset($_SESSION['user_id'])) {
 
 http_response_code(403);
 echo json_encode(['error' => 'Unauthorized']);
+
+header('Content-Type: application/json');
+echo json_encode(['status' => 'success']);
+exit();
