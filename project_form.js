@@ -24,11 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const method = form.hasAttribute('data-update') ? 'PUT' : 'POST';
 
     try {
-      const res = await fetch('project_api.php', {
-        method,
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch('/project_api.php', {
+        method: 'POST',
         body: JSON.stringify(data),
-      });
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const json = JSON.parse(text);
+            console.log('Успех:', json);
+        } catch (e) {
+            console.error('Некорректный JSON:', text);
+        }
+    });
 
       const result = await res.json();
       responseDiv.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;

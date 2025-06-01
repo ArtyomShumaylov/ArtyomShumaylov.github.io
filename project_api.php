@@ -69,5 +69,6 @@ if ($method === 'PUT' && isset($_SESSION['user_id'])) {
 }
 
 header('Content-Type: application/json');
-echo json_encode(['status' => 'success']);
+http_response_code(400);
+echo json_encode(['error' => 'Некорректные данные']);
 exit();
