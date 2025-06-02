@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('projectForm');
-  const responseDiv = document.getElementById('project_response');
+  const form = document.getElementById('mainForm');
+  const responseDiv = document.getElementById('response');
 
   if (!form || !window.fetch) return;
 
@@ -10,39 +10,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const formData = new FormData(form);
     const data = {};
     formData.forEach((value, key) => {
-      if (key in data) {
-        if (Array.isArray(data[key])) {
-          data[key].push(value);
-        } else {
-          data[key] = [data[key], value];
-        }
+      if (key === 'languages[]') {
+        if (!data['languages']) data['languages'] = [];
+        data['languages'].push(value);
       } else {
         data[key] = value;
       }
     });
 
-    const method = form.hasAttribute('data-update') ? 'PUT' : 'POST';
+    const isUpdate = document.cookie.includes('user_id=');
+    const method = isUpdate ? 'PUT' : 'POST';
 
     try {
-      const res = await fetch('/project_api.php', {
+      const response = await fetch('/project_api.php', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-HTTP-Method-Override': method
+        },
         body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
-    })
-    .then(async response => {
-        const text = await response.text();
-        try {
-            const json = JSON.parse(text);
-            console.log('Успех:', json);
-        } catch (e) {
-            console.error('Некорректный JSON:', text);
-        }
-    });
+        credentials: 'include'
+      });
 
-      const result = await res.json();
-      responseDiv.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      responseDiv.innerHTML = `<div class="alert alert-success">
+        <pre>${JSON.stringify(result, null, 2)}</pre>
+      </div>`;
+      
+      if (result.login && result.password) {
+        alert(`Ваши учетные данные:\nЛогин: ${result.login}\nПароль: ${result.password}`);
+      }
     } catch (err) {
-      responseDiv.textContent = 'Ошибка при отправке формы.';
+      responseDiv.innerHTML = `<div class="alert alert-danger">
+        Ошибка при отправке формы: ${err.message}
+      </div>`;
+      console.error('Error:', err);
     }
   });
 });

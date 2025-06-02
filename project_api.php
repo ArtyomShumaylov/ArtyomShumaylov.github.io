@@ -7,7 +7,12 @@ require_once __DIR__ . '/project_auth.php';
 header('Content-Type: application/json');
 
 session_start();
+
 $method = $_SERVER['REQUEST_METHOD'];
+
+if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
+    $method = strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
+}
 
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input) {
@@ -24,53 +29,39 @@ if (!empty($errors)) {
     exit;
 }
 
-if ($method === 'POST') {
-    $login = 'user' . rand(1000, 9999);
-    $password = bin2hex(random_bytes(4));
-    $hash = password_hash($password, PASSWORD_DEFAULT);
+$pdo = connect_project_db();
 
-    $stmt = $pdo->prepare("INSERT INTO users (login, password, fio, phone, email, birthdate, gender, bio)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([
-        $login, $hash, $input['fio'], $input['phone'], $input['email'],
-        $input['birthdate'], $input['gender'], $input['bio']
-    ]);
-
-    $user_id = $pdo->lastInsertId();
-
-    $stmt = $pdo->prepare("INSERT INTO user_languages (user_id, language) VALUES (?, ?)");
-    foreach ($input['languages'] as $lang) {
-        $stmt->execute([$user_id, $lang]);
+try {
+    if ($method === 'POST') {
+        $result = register_new_user($pdo, $input);
+        
+        $_SESSION['user_id'] = $result['id'];
+        $_SESSION['username'] = $result['login'];
+        
+        echo json_encode([
+            'message' => 'User created',
+            'login' => $result['login'],
+            'password' => $result['password'],
+            'profile_url' => "/project_profile.php?id=" . $result['id']
+        ]);
+        exit;
     }
 
-    echo json_encode([
-        'message' => 'User created',
-        'login' => $login,
-        'password' => $password,
-        'profile_url' => "/profile.php?id=$user_id"
-    ]);
-    exit;
-}
-
-if ($method === 'PUT' && isset($_SESSION['user_id'])) {
-    $id = $_SESSION['user_id'];
-    $stmt = $pdo->prepare("UPDATE users SET fio=?, phone=?, email=?, birthdate=?, gender=?, bio=? WHERE id=?");
-    $stmt->execute([
-        $input['fio'], $input['phone'], $input['email'],
-        $input['birthdate'], $input['gender'], $input['bio'], $id
-    ]);
-
-    $pdo->prepare("DELETE FROM user_languages WHERE user_id=?")->execute([$id]);
-    $stmt = $pdo->prepare("INSERT INTO user_languages (user_id, language) VALUES (?, ?)");
-    foreach ($input['languages'] as $lang) {
-        $stmt->execute([$id, $lang]);
+    if ($method === 'PUT') {
+        if (empty($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            exit;
+        }
+        
+        update_user_data($pdo, $_SESSION['user_id'], $input);
+        echo json_encode(['message' => 'Data updated']);
+        exit;
     }
 
-    echo json_encode(['message' => 'Data updated']);
-    exit;
+    http_response_code(405);
+    echo json_encode(['error' => 'Method not allowed']);
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
 }
-
-header('Content-Type: application/json');
-http_response_code(400);
-echo json_encode(['error' => 'Некорректные данные']);
-exit();
