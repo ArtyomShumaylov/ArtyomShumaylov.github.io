@@ -32,13 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'include'
       });
 
+      const result = await response.json();
+      
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        if (response.status === 422) {
+          let errorMsg = 'Ошибки валидации:\n';
+          for (const field in result.errors) {
+            errorMsg += `${field}: ${result.errors[field]}\n`;
+          }
+          throw new Error(errorMsg);
+        }
+        throw new Error(`Ошибка сервера: ${result.error || 'Неизвестная ошибка'}`);
       }
 
-      const result = await response.json();
       responseDiv.innerHTML = `<div class="alert alert-success">
-        <pre>${JSON.stringify(result, null, 2)}</pre>
+        ${result.message || 'Успешно!'}
+        ${result.login ? `<br>Логин: ${result.login}` : ''}
+        ${result.password ? `<br>Пароль: ${result.password}` : ''}
       </div>`;
       
       if (result.login && result.password) {
@@ -46,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       responseDiv.innerHTML = `<div class="alert alert-danger">
-        Ошибка при отправке формы: ${err.message}
+        Ошибка: ${err.message}
       </div>`;
       console.error('Error:', err);
     }
