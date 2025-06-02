@@ -10,22 +10,25 @@
     <?php if ($user): ?>
       <p>Вы авторизованы как <?= htmlspecialchars($user['login']) ?></p>
     <?php endif; ?>
-    <form id="projectForm" method="POST" action="project_save_form.php">
+    
+    <form id="mainForm" method="POST" action="project_api.php">
+      <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
+      
       <input type="text" name="fio" placeholder="ФИО" required value="<?= htmlspecialchars($values['fio'] ?? '') ?>">
-      <?= $errors['fio'] ?? '' ?><br>
+      <?= isset($errors['fio']) ? '<span class="error">'.htmlspecialchars($errors['fio']).'</span>' : '' ?><br>
 
       <input type="tel" name="phone" placeholder="Телефон" required value="<?= htmlspecialchars($values['phone'] ?? '') ?>">
-      <?= $errors['phone'] ?? '' ?><br>
+      <?= isset($errors['phone']) ? '<span class="error">'.htmlspecialchars($errors['phone']).'</span>' : '' ?><br>
 
       <input type="email" name="email" placeholder="Email" required value="<?= htmlspecialchars($values['email'] ?? '') ?>">
-      <?= $errors['email'] ?? '' ?><br>
+      <?= isset($errors['email']) ? '<span class="error">'.htmlspecialchars($errors['email']).'</span>' : '' ?><br>
 
       <input type="date" name="birthdate" required value="<?= htmlspecialchars($values['birthdate'] ?? '') ?>">
-      <?= $errors['birthdate'] ?? '' ?><br>
+      <?= isset($errors['birthdate']) ? '<span class="error">'.htmlspecialchars($errors['birthdate']).'</span>' : '' ?><br>
 
       <label><input type="radio" name="gender" value="М" <?= (isset($values['gender']) && $values['gender'] === 'М') ? 'checked' : '' ?>> Мужской</label>
       <label><input type="radio" name="gender" value="Ж" <?= (isset($values['gender']) && $values['gender'] === 'Ж') ? 'checked' : '' ?>> Женский</label>
-      <?= $errors['gender'] ?? '' ?><br>
+      <?= isset($errors['gender']) ? '<span class="error">'.htmlspecialchars($errors['gender']).'</span>' : '' ?><br>
 
       <label>Любимые ЯП:</label><br>
       <select name="languages[]" multiple required>
@@ -33,22 +36,25 @@
         $all_languages = ['Pascal','C','C++','JavaScript','PHP','Python','Java','Haskel','Clojure','Prolog','Scala','Go'];
         foreach ($all_languages as $lang) {
           $selected = (isset($values['languages']) && in_array($lang, $values['languages'])) ? 'selected' : '';
-          echo "<option value=\"$lang\" $selected>$lang</option>";
+          echo "<option value=\"".htmlspecialchars($lang)."\" $selected>".htmlspecialchars($lang)."</option>";
         }
         ?>
       </select>
-      <?= $errors['languages'] ?? '' ?><br>
+      <?= isset($errors['languages']) ? '<span class="error">'.htmlspecialchars($errors['languages']).'</span>' : '' ?><br>
 
       <textarea name="bio" placeholder="Биография"><?= htmlspecialchars($values['bio'] ?? '') ?></textarea>
-      <?= $errors['bio'] ?? '' ?><br>
+      <?= isset($errors['bio']) ? '<span class="error">'.htmlspecialchars($errors['bio']).'</span>' : '' ?><br>
 
-      <label><input type="checkbox" name="contract" required> С контрактом ознакомлен(а)</label>
-      <?= $errors['contract'] ?? '' ?><br>
+      <label>
+        <input type="checkbox" name="contract" value="on" <?= isset($values['contract']) ? 'checked' : '' ?> required>
+        С контрактом ознакомлен(а)
+      </label>
+      <?= isset($errors['contract']) ? '<span class="error">'.htmlspecialchars($errors['contract']).'</span>' : '' ?><br>
 
       <button type="submit">Сохранить</button>
     </form>
 
-    <div id="project_response"></div>
+    <div id="response"></div>
   </div>
 
   <script src="project_form.js"></script>
