@@ -42,9 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
     if (!response.ok) {
-      console.log('Ошибка от API:', result.errors); // ← добавляем вывод в консоль
-      throw new Error(result.message || `HTTP error! status: ${response.status}`);
+  // Если есть ошибки валидации — показать их в форме
+  if (result.errors) {
+    // Очистим предыдущие сообщения
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+    for (const [field, message] of Object.entries(result.errors)) {
+      const input = form.querySelector(`[name="${field}"]`);
+      if (input) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.style.color = 'red';
+        errorDiv.style.fontSize = '14px';
+        errorDiv.textContent = message;
+        input.parentElement.appendChild(errorDiv);
+      }
     }
+    return; // не выбрасываем ошибку — мы сами её обработали
+  }
+
+  throw new Error(result.message || `HTTP error! status: ${response.status}`);
+}
 
       responseDiv.innerHTML = `<div class="alert alert-success">
         ${result.message || 'Успешно!'}
