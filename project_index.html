@@ -3,90 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма регистрации</title>
-    <style>
-        .error {
-            color: red;
-            margin-top: 5px;
-        }
-    </style>
+    <title>Drupal Поддержка</title>
+    <link rel="stylesheet" href="p.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<main>
-    <h1>Регистрация</h1>
-    <form id="registration-form">
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        
-        <button type="submit">Зарегистрироваться</button>
-    </form>
-
-    <div id="error-container"></div>
-
-    <section class="social-media">
-        <h2>С нами работают</h2>
-        <div class="social-links">
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">LinkedIn</a>
+    <header>
+        <video autoplay muted loop class="bg-video">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="header-content">
+            <h1>Поддержка сайтов на Drupal</h1>
+            <p>Сопровождение и развитие проектов</p>
+            <a href="#form" class="btn">Оставить заявку</a>
         </div>
-    </section>
-</main>
+    </header>
 
-<script src="project_form.js"></script>
-<script>
-document.getElementById('registration-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Предотвращаем стандартное поведение формы
-
-    const formData = {
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value
-    };
-
-    fetch('http://yourdomain.com/project_api.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(err => {
-                console.error('Ошибка:', err);
-                displayErrors(err.errors || [err.error]);
-            });
-        }
+    <main>
         
-        return response.json();
-    })
-    .then(result => {
-        console.log('Успех:', result.message);
-        // Здесь можно добавить логику для перенаправления или отображения успешного сообщения
-    })
-    .catch(error => {
-        console.error('Ошибка сети:', error);
-    });
+        <section class="services">
+        </section>
 
-    function displayErrors(errors) {
-        const errorContainer = document.getElementById('error-container');
-        errorContainer.innerHTML = ''; // Очищаем предыдущие ошибки
-        
-        errors.forEach(error => {
-            const errorElement = document.createElement('div');
-            errorElement.className = 'error'; // Добавьте CSS класс для стилизации ошибок
-            errorElement.textContent = error;
-            errorContainer.appendChild(errorElement);
-        });
-    }
-});
-</script>
+        <section class="pricing">
+        </section>
 
+        <section class="team">
+        </section>
+
+        <section class="cases">
+        </section>
+
+        <section class="reviews">
+        </section>
+
+        <section class="faq">
+        </section>
+
+
+        <section id="form" class="form-section">
+            <div class="form-container">
+                <h2>Оставить заявку</h2>
+                <form id="mainForm" method="POST" action="project_api.php">
+                    <div class="form-row">
+                        <input type="text" name="fio" placeholder="ФИО" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="tel" name="phone" placeholder="Телефон" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="date" name="birthdate" required>
+                    </div>
+                    <div class="form-row">
+                        <label><input type="radio" name="gender" value="М" required> Мужской</label>
+                        <label><input type="radio" name="gender" value="Ж" required> Женский</label>
+                    </div>
+                    <div class="form-row">
+                        <label for="languages">Любимый язык программирования:</label>
+                        <select name="languages[]" id="languages" multiple required>
+                            <option value="Pascal">Pascal</option>
+                            <option value="C">C</option>
+                            <option value="C++">C++</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                            <option value="Haskel">Haskel</option>
+                            <option value="Clojure">Clojure</option>
+                            <option value="Prolog">Prolog</option>
+                            <option value="Scala">Scala</option>
+                            <option value="Go">Go</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <textarea name="bio" placeholder="Биография" rows="4" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            <input type="checkbox" name="contract" value="on" required>
+                            С контрактом ознакомлен(а)
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit">Сохранить</button>
+                    </div>
+                </form>
+                <div id="response"></div>
+            </div>
+        </section>
+
+
+        <section class="social-media">
+            <h2>С нами работают</h2>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="project_form.js"></script>
 </body>
 </html>

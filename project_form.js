@@ -7,21 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-      if (key === 'languages[]') {
-        if (!data['languages']) data['languages'] = [];
-        data['languages'].push(value);
-      } else {
-        data[key] = value;
-      }
-    });
-
-    const isUpdate = document.cookie.includes('user_id=');
-    const method = isUpdate ? 'PUT' : 'POST';
-
     try {
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        if (key === 'languages[]') {
+          if (!data['languages']) data['languages'] = [];
+          data['languages'].push(value);
+        } else {
+          data[key] = value;
+        }
+      });
+
+      const isUpdate = document.cookie.includes('user_id=');
+      const method = isUpdate ? 'PUT' : 'POST';
+
       const response = await fetch('/project_api.php', {
         method: 'POST',
         headers: {
@@ -32,17 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'include'
       });
 
+      // Проверяем Content-Type перед парсингом
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        throw new Error(`Ожидался JSON, получено: ${text.substring(0, 100)}`);
+      }
+
       const result = await response.json();
-      
+
       if (!response.ok) {
-        if (response.status === 422) {
-          let errorMsg = 'Ошибки валидации:\n';
-          for (const field in result.errors) {
-            errorMsg += `${field}: ${result.errors[field]}\n`;
-          }
-          throw new Error(errorMsg);
-        }
-        throw new Error(`Ошибка сервера: ${result.error || 'Неизвестная ошибка'}`);
+        throw new Error(result.error || `HTTP error! status: ${response.status}`);
       }
 
       responseDiv.innerHTML = `<div class="alert alert-success">
@@ -50,15 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ${result.login ? `<br>Логин: ${result.login}` : ''}
         ${result.password ? `<br>Пароль: ${result.password}` : ''}
       </div>`;
-      
-      if (result.login && result.password) {
-        alert(`Ваши учетные данные:\nЛогин: ${result.login}\nПароль: ${result.password}`);
-      }
+
     } catch (err) {
       responseDiv.innerHTML = `<div class="alert alert-danger">
         Ошибка: ${err.message}
       </div>`;
-      console.error('Error:', err);
+      console.error('Error details:', err);
     }
   });
 });
