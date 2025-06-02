@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/project_db.php';
-require_once __DIR__ . '/project_validator.php';
-require_once __DIR__ . '/project_auth.php';
+require_once DIR . '/project_db.php';
+require_once DIR . '/project_validator.php';
+require_once DIR . '/project_auth.php';
 
 header('Content-Type: application/json');
 
@@ -16,14 +16,6 @@ if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input) {
     http_response_code(400);
-
-    //add
-    ob_start();
-    var_dump($result); 
-    $response = ob_get_clean();
-    file_put_contents('debug.log', $response);
-    //add
-
     echo json_encode(['error' => 'Invalid JSON']);
     exit;
 }
@@ -48,7 +40,6 @@ try {
         echo json_encode([
             'message' => 'User created',
             'login' => $result['login'],
-            'password' => $result['password'],
             'profile_url' => "/project_profile.php?id=" . $result['id']
         ]);
         exit;
