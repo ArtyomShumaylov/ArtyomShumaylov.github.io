@@ -9,7 +9,6 @@ header('Content-Type: application/json');
 session_start();
 
 $method = $_SERVER['REQUEST_METHOD'];
-
 if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
     $method = strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
 }
@@ -17,6 +16,14 @@ if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input) {
     http_response_code(400);
+
+    //add
+    ob_start();
+    var_dump($result); 
+    $response = ob_get_clean();
+    file_put_contents('debug.log', $response);
+    //add
+
     echo json_encode(['error' => 'Invalid JSON']);
     exit;
 }
