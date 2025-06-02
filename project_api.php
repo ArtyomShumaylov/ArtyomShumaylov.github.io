@@ -1,7 +1,4 @@
 <?php
-// Включение всех ошибок для отладки (убрать в продакшене)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 // Очистка буфера вывода на случай лишних пробелов
 while (ob_get_level()) ob_end_clean();
