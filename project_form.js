@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isUpdate = document.cookie.includes('user_id=');
       const method = isUpdate ? 'PUT' : 'POST';
 
-      const response = await fetch('project_api.php', {
+      const response = await fetch('./project_api.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
