@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'include'
       });
 
-      console.log({response});
+      if (!response.ok) {
+        throw new Error('Network response was not ok' + response);
+      }
 
       const result = await response.json();
       responseDiv.innerHTML = `<div class="alert alert-success">
