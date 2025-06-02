@@ -41,9 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.error || `HTTP error! status: ${response.status}`);
-      }
+    if (!response.ok) {
+      console.log('Ошибка от API:', result.errors); // ← добавляем вывод в консоль
+      throw new Error(result.message || `HTTP error! status: ${response.status}`);
+    }
 
       responseDiv.innerHTML = `<div class="alert alert-success">
         ${result.message || 'Успешно!'}
