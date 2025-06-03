@@ -1,6 +1,5 @@
 <?php
 
-// Очистка буфера вывода на случай лишних пробелов
 while (ob_get_level()) ob_end_clean();
 
 // Установка заголовков ДО любого вывода
@@ -9,7 +8,7 @@ header("Access-Control-Allow-Methods: POST, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, X-HTTP-Method-Override");
 header('Content-Type: application/json', true);
 
-// Старт сессии после заголовков
+// Старт сессии
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

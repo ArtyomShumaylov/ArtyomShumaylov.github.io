@@ -17,7 +17,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 $login = $_SERVER['PHP_AUTH_USER'];
 $password = $_SERVER['PHP_AUTH_PW'];
 
-// Проверяем логин и пароль администратора
+// Проверка логина и пароля администратора
 $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE login = ?");
 $stmt->execute([$login]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -48,17 +48,17 @@ function getLanguageStats($pdo) {
 // Обработка удаления пользователя
 if (isset($_GET['delete_user'])) {
     $user_id = (int)$_GET['delete_user'];
-    // Удаляем языки пользователя
     $stmt = $pdo->prepare("DELETE FROM user_languages WHERE user_id = ?");
     $stmt->execute([$user_id]);
-    // Удаляем пользователя
+
+    // Удаление пользователя
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     header('Location: admin.php');
     exit();
 }
 
-// Обработка редактирования данных пользователя (простейший пример через POST)
+// Обработка редактирования данных пользователя
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_user'])) {
     $user_id = (int)$_POST['user_id'];
     $fio = $_POST['fio'];
@@ -69,11 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_user'])) {
     $bio = $_POST['bio'];
     $languages = $_POST['languages'] ?? [];
 
-    // Обновляем данные пользователя
+   
     $stmt = $pdo->prepare("UPDATE users SET fio=?, phone=?, email=?, birthdate=?, gender=?, bio=? WHERE id=?");
     $stmt->execute([$fio, $phone, $email, $birthdate, $gender, $bio, $user_id]);
 
-    // Обновляем языки
     $stmt = $pdo->prepare("DELETE FROM user_languages WHERE user_id=?");
     $stmt->execute([$user_id]);
 
@@ -86,11 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_user'])) {
     exit();
 }
 
-// Получаем всех пользователей и статистику языков
 $users = getAllUsers($pdo);
 $lang_stats = getLanguageStats($pdo);
 
-// Языки программирования для формы редактирования
 $all_languages = ["Pascal","C","C++","JavaScript","PHP","Python","Java","Haskell","Clojure","Prolog","Scala","Go"];
 
 ?>
@@ -138,10 +135,10 @@ $all_languages = ["Pascal","C","C++","JavaScript","PHP","Python","Java","Haskell
                         <button type="submit">Удалить</button>
                     </form>
 
-                    <!-- Кнопка редактирования (открывает форму ниже) -->
+                    <!-- Кнопка редактирования -->
                     <button onclick="document.getElementById('edit-form-<?=$user['id']?>').style.display='block'">Редактировать</button>
 
-                    <!-- Форма редактирования (скрыта по умолчанию) -->
+                    <!-- Форма редактирования-->
                     <div id="edit-form-<?=$user['id']?>" style="display:none; border:1px solid #aaa; padding:10px; margin-top:10px;">
                         <form method="post">
                             <input type="hidden" name="user_id" value="<?= $user['id'] ?>">

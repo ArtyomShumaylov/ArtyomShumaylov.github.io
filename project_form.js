@@ -42,9 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
     if (!response.ok) {
-  // Если есть ошибки валидации — показать их в форме
+  // Если есть ошибки - показываются в форме
   if (result.errors) {
-    // Очистим предыдущие сообщения
     document.querySelectorAll('.error-message').forEach(el => el.remove());
 
     for (const [field, message] of Object.entries(result.errors)) {
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.parentElement.appendChild(errorDiv);
       }
     }
-    return; // не выбрасываем ошибку — мы сами её обработали
+    return; 
   }
 
   throw new Error(result.message || `HTTP error! status: ${response.status}`);
