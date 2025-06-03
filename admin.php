@@ -6,7 +6,7 @@ session_start();
 $pdo = new PDO('mysql:host=localhost;dbname=u68534;charset=utf8', 'u68534', '9542530');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// HTTP Basic Auth
+// HTTP аутентификация
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('WWW-Authenticate: Basic realm="Админ-панель"');
     header('HTTP/1.0 401 Unauthorized');
